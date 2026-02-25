@@ -1,20 +1,27 @@
+import java.util.*;
+
 class Solution {
     public int[] sortByBits(int[] arr) {
-        for(int i=0;i<arr.length;i++){
-            for(int j=0;j<arr.length-i-1;j++){
-                
-                int e1= Integer.bitCount(arr[j]);
-                int e2= Integer.bitCount(arr[j+1]);
-                // System.out.println(i+" - "+" "+j +"->"+e1+" "+e2);
-                if(e1>e2 ||(e1==e2 &&arr[j]>arr[j+1])){
-                    int temp= arr[j];
-                    arr[j]=arr[j+1];
-                    arr[j+1]=temp;
-                    // System.out.println("Swapped");
-                    // System.out.println(Arrays.toString(arr));
-                }
-            }
+        Integer[] temp = new Integer[arr.length];
+        
+        for(int i = 0; i < arr.length; i++) {
+            temp[i] = arr[i];
         }
+
+        Arrays.sort(temp, (a, b) -> {
+            int countA = Integer.bitCount(a);
+            int countB = Integer.bitCount(b);
+
+            if(countA == countB) {
+                return a - b;
+            }
+            return countA - countB;
+        });
+
+        for(int i = 0; i < arr.length; i++) {
+            arr[i] = temp[i];
+        }
+
         return arr;
     }
 }
