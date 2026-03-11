@@ -1,10 +1,11 @@
 class Solution {
     public int bitwiseComplement(int n) {
-        int ex=1;
-        while(ex<n){
-            ex=ex<<1;
-            ex= ex|1;
-        }
-        return (~n)&ex;
+        if (n == 0) return 1;
+
+        int length = (int)(Math.log(n) / Math.log(2)) + 1;
+
+        int mask = (1 << length) - 1;
+
+        return n ^ mask;
     }
 }
