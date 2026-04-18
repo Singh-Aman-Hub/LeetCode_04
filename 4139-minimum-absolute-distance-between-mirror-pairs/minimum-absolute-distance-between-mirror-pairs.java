@@ -1,24 +1,28 @@
 class Solution {
-    private int reverse(int x) {
-        int rev = 0;
-        while (x > 0) {
-            rev = rev * 10 + x % 10;
-            x /= 10;
+    public int reverse(int n){
+        int newNum= 0;
+        while(n>0){
+            newNum*=10;
+            newNum+= n%10;
+            n/=10;
         }
-        return rev;
+        return newNum;
     }
-
     public int minMirrorPairDistance(int[] nums) {
-        HashMap<Integer, Integer> mpp = new HashMap<>();
-        int n = nums.length, ans = (int) 1e6;
-
-        for (int i = 0; i < n; i++) {
-            if (mpp.containsKey(nums[i])) {
-                ans = Math.min(ans, i - mpp.get(nums[i]));
+        HashMap<Integer, Integer> map= new HashMap<>();
+        int ans= Integer.MAX_VALUE;
+        for(int i=0;i< nums.length;i++){
+            int n= nums[i];
+            int reversed= reverse(n);
+            if(map.containsKey(n)){
+                ans= Math.min(ans, Math.abs(i-map.get(n)));
+                
             }
-            mpp.put(reverse(nums[i]), i);
+             map.put(reversed, i);
         }
+        if(ans==Integer.MAX_VALUE)ans=-1;
+        return ans;
 
-        return ans == (int) 1e6 ? -1 : ans;
+
     }
 }
