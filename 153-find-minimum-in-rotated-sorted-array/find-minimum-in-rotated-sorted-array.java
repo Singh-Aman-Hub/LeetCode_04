@@ -5,11 +5,11 @@ class Solution {
         int j=nums.length-1;
         while(i<j){
             int mid= (i+j)/2;
-            if(nums[j]>nums[mid]){
-                j=mid;
+            if(nums[i]<=nums[mid] && nums[i]> nums[j]){
+                i=mid+1;
             }
             else{
-                i= mid+1;
+                j= mid;
             }
            
         }
