@@ -1,19 +1,29 @@
 class Solution {
     public int findMin(int[] nums) {
-        // int ans=0;
-        int i=0;
-        int j=nums.length-1;
-        while(i<j){
-            int mid= (i+j)/2;
-            if(nums[i]<=nums[mid] && nums[i]> nums[j]){
-                i=mid+1;
+        int left = 0;
+        int right = nums.length - 1;
+
+        while (left < right) {
+
+            int mid = left + (right - left) / 2;
+
+            // Minimum is in right half
+            if (nums[mid] > nums[right]) {
+                left = mid + 1;
             }
-            else{
-                j= mid;
+
+            // Minimum is in left half including mid
+            else if (nums[mid] < nums[right]) {
+                right = mid;
             }
-           
+
+            // nums[mid] == nums[right]
+            // Can't decide, remove duplicate safely
+            else {
+                right--;
+            }
         }
 
-        return nums[i];
+        return nums[left];
     }
 }
